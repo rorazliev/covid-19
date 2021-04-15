@@ -79,41 +79,26 @@ export const fetch = (
   // Start fetching data
   dispatch(actions.setFetching(true));
 
-  // If it works with a certain state data
-  if (!state) {
-    // Get overall data and timeline
-    const overall: AxiosPromise<Overall> = api.getUsaTotal();
-    const timeline: AxiosPromise<Timeline> = api.getUsaTimeline();
+  // Get overall data
+  const overall: AxiosPromise<Overall> = state
+    ? api.getStateTotal(state) : api.getUsaTotal();
 
-    Promise.all([overall, timeline]).then(
-      ([overallResponse, timelineResponse]) => {
-        const overalllData = overallResponse.data;
-        const timelineData = timelineResponse.data;
+  // Get timeline
+  const timeline: AxiosPromise<Timeline> = state
+    ? api.getStateTimeline(state) : api.getUsaTimeline();
 
-        dispatch(actions.setOverall(overalllData));
-        dispatch(actions.setTimeline(timelineData));
-      },
-    ).catch(() => {
-      dispatch(actions.setError(true));
-    });
-  // If it works with the nationwide data
-  } else {
-    const overall: AxiosPromise<Overall> = api.getStateTotal(state);
-    const timeline: AxiosPromise<Timeline> = api.getStateTimeline(state);
+  // Wait responses and set data
+  Promise.all([overall, timeline]).then(
+    ([overallResponse, timelineResponse]) => {
+      const overalllData = overallResponse.data;
+      const timelineData = timelineResponse.data;
 
-    Promise.all([overall, timeline]).then(
-      ([overallResponse, timelineResponse]) => {
-        const overallData = overallResponse.data;
-        const timelineData = timelineResponse.data;
-
-        dispatch(actions.setOverall(overallData));
-        dispatch(actions.setTimeline(timelineData));
-      },
-    ).catch(() => {
-      dispatch(actions.setError(true));
-    });
-  }
-
+      dispatch(actions.setOverall(overalllData));
+      dispatch(actions.setTimeline(timelineData));
+    },
+  ).catch(() => {
+    dispatch(actions.setError(true));
+  });
   // End fetching data
   dispatch(actions.setFetching(false));
 };
