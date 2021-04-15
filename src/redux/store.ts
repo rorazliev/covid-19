@@ -5,9 +5,12 @@ import thunk, { ThunkDispatch } from 'redux-thunk';
 import {
   TypedUseSelectorHook, useSelector as useBaseSelector,
 } from 'react-redux';
+import dataReducer from './dataReducer';
 
 // Create a root reducer
-const rootReducer = combineReducers({});
+const rootReducer = combineReducers({
+  data: dataReducer,
+});
 
 // Create an new store instance
 const store = createStore(rootReducer, applyMiddleware(thunk));
