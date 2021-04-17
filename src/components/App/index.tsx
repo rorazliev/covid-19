@@ -3,6 +3,7 @@ import {
   HashRouter as Router, Switch, Redirect, Route,
 } from 'react-router-dom';
 import ignoreRejection from '../../helpers/ignoreRejection';
+import Loader from '../Loader';
 
 const App: React.FC = (): ReactElement => {
   // Handle unhandled rejections
@@ -15,7 +16,7 @@ const App: React.FC = (): ReactElement => {
 
   return (
     <Router>
-      <Suspense fallback={null}>
+      <Suspense fallback={<Loader />}>
         <Switch>
           <Route exact path="/" render={() => null} />
           <Route exact path="/:state" render={() => null} />
