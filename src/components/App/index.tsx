@@ -2,8 +2,10 @@ import React, { ReactElement, Suspense, useEffect } from 'react';
 import {
   HashRouter as Router, Switch, Redirect, Route,
 } from 'react-router-dom';
-import ignoreRejection from '../../helpers/ignoreRejection';
+import { Content } from './styles';
+import Footer from '../Footer';
 import Loader from '../Loader';
+import ignoreRejection from '../../helpers/ignoreRejection';
 
 const App: React.FC = (): ReactElement => {
   // Handle unhandled rejections
@@ -16,13 +18,16 @@ const App: React.FC = (): ReactElement => {
 
   return (
     <Router>
-      <Suspense fallback={<Loader />}>
-        <Switch>
-          <Route exact path="/" render={() => null} />
-          <Route exact path="/:state" render={() => null} />
-          <Route path="*" render={() => <Redirect to="/" />} />
-        </Switch>
-      </Suspense>
+      <Content role="main">
+        <Suspense fallback={<Loader />}>
+          <Switch>
+            <Route exact path="/" render={() => null} />
+            <Route exact path="/:state" render={() => null} />
+            <Route path="*" render={() => <Redirect to="/" />} />
+          </Switch>
+        </Suspense>
+      </Content>
+      <Footer />
     </Router>
   );
 };
