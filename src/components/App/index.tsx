@@ -4,6 +4,7 @@ import {
 } from 'react-router-dom';
 import { Content } from './styles';
 import Footer from '../Footer';
+import Header from '../Header';
 import Loader from '../Loader';
 import ignoreRejection from '../../helpers/ignoreRejection';
 
@@ -18,6 +19,7 @@ const App: React.FC = (): ReactElement => {
 
   return (
     <Router>
+      <Header />
       <Content role="main">
         <Suspense fallback={<Loader />}>
           <Switch>
