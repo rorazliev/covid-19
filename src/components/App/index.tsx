@@ -6,6 +6,7 @@ import { Content } from './styles';
 import Footer from '../Footer';
 import Header from '../Header';
 import Loader from '../Loader';
+import Home from '../../pages/Home';
 import ignoreRejection from '../../helpers/ignoreRejection';
 
 const App: React.FC = (): ReactElement => {
@@ -23,7 +24,7 @@ const App: React.FC = (): ReactElement => {
       <Content role="main">
         <Suspense fallback={<Loader />}>
           <Switch>
-            <Route exact path="/" render={() => null} />
+            <Route exact path="/" component={Home} />
             <Route exact path="/:state" render={() => null} />
             <Route path="*" render={() => <Redirect to="/" />} />
           </Switch>
