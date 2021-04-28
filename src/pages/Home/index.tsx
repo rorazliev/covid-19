@@ -7,6 +7,7 @@ import StateList from '../../components/StateList';
 import { fetch, reset } from '../../redux/dataReducer';
 import { Dispatch, useSelector } from '../../redux/store';
 import Overall from '../../components/Overall';
+import Chart from '../../components/Chart';
 
 const Home: React.FC = (): ReactElement => {
   // Create dispatch instance
@@ -18,7 +19,7 @@ const Home: React.FC = (): ReactElement => {
     return () => {
       dispatch(reset());
     };
-  }, []);
+  }, [dispatch]);
 
   const isFetching = useSelector((state) => state.data.isFetching);
   const isError = useSelector((state) => state.data.isError);
@@ -34,6 +35,7 @@ const Home: React.FC = (): ReactElement => {
     <>
       <Overall name="United States" />
       <StateList list={stateList} />
+      <Chart />
     </>
   );
 };

@@ -8,16 +8,16 @@ import { Dispatch } from './store';
 
 // State type
 type State = {
-  overall?: Overall,
-  timeline?: Timeline,
+  overall: Overall,
+  timeline: Timeline,
   isFetching: boolean,
   isError: boolean,
 }
 
 // Initial state
 const initialState = {
-  overall: undefined,
-  timeline: undefined,
+  overall: {} as Overall,
+  timeline: [] as Timeline,
   isFetching: true,
   isError: false,
 };
@@ -107,8 +107,8 @@ export const fetch = (
 export const reset = () => (dispatch: Dispatch): void => {
   dispatch(actions.setError(false));
   dispatch(actions.setFetching(true));
-  dispatch(actions.setOverall(undefined));
-  dispatch(actions.setTimeline(undefined));
+  dispatch(actions.setOverall({} as Overall));
+  dispatch(actions.setTimeline([] as Timeline));
 };
 
 export default dataReducer;
