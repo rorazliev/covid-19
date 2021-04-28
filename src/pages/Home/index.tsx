@@ -6,6 +6,7 @@ import Loader from '../../components/Loader';
 import StateList from '../../components/StateList';
 import { fetch, reset } from '../../redux/dataReducer';
 import { Dispatch, useSelector } from '../../redux/store';
+import Overall from '../../components/Overall';
 
 const Home: React.FC = (): ReactElement => {
   // Create dispatch instance
@@ -30,7 +31,10 @@ const Home: React.FC = (): ReactElement => {
 
   // Display page
   return (
-    <StateList list={stateList} />
+    <>
+      <Overall name="United States" />
+      <StateList list={stateList} />
+    </>
   );
 };
 
