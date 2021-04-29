@@ -1,4 +1,6 @@
-import React, { ReactElement, Suspense, useEffect } from 'react';
+import React, {
+  lazy, ReactElement, Suspense, useEffect,
+} from 'react';
 import {
   HashRouter as Router, Switch, Redirect, Route,
 } from 'react-router-dom';
@@ -8,6 +10,8 @@ import Header from '../Header';
 import Loader from '../Loader';
 import Home from '../../pages/Home';
 import ignoreRejection from '../../helpers/ignoreRejection';
+
+const State = lazy(() => import('../../pages/State'));
 
 const App: React.FC = (): ReactElement => {
   // Handle unhandled rejections
@@ -25,7 +29,7 @@ const App: React.FC = (): ReactElement => {
         <Suspense fallback={<Loader />}>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/:state" render={() => null} />
+            <Route exact path="/:state" component={State} />
             <Route path="*" render={() => <Redirect to="/" />} />
           </Switch>
         </Suspense>
