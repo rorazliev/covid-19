@@ -1,46 +1,33 @@
-# Getting Started with Create React App
+# COVID-19 Tracker
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="left">
+  <img src="https://img.shields.io/github/package-json/v/rorazliev/covid-19" alt="Github package.json version" />
+  <img src="https://img.shields.io/github/languages/top/rorazliev/covid-19" alt="GitHub top language" />
+  <img alt="Code style" src="https://img.shields.io/badge/code%20style-airbnb-ff69b4">
+  <img src="https://img.shields.io/github/license/rorazliev/covid-19" alt="License" />
+</p>
 
-## Available Scripts
+![COVID-19](https://i.imgur.com/eQtBBo2.png)
 
-In the project directory, you can run:
+**[Try it now!](https://rorazliev.github.io/covid-19)**
 
-### `npm start`
+**COVID-19** is a signle-page React application that tracks Coronavirus disease situation in the United States. Users can also track the growth of active cases and deaths in their state.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The application takes a light weight responsive design, and provides an intuitive functionality of displaying the nationwide and per-state data visualized as a candlestick chart.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+The application utilizes [Open Disease Data API](https://disease.sh) as a data source.
 
-### `npm test`
+## Usage
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+If you'd like to try the application, you can do it **[here](https://rorazliev.github.io/covid-19)**.
 
-### `npm run build`
+If you're a developer:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Download the distribution code from [here](https://github.com/rorazliev/covid-19/archive/refs/tags/v1.0.0.zip) and unzip it
+2. In your terminal, `cd` into the project directory
+3. Run `npm i` to install all dependencies
+4. Run `npm start` to start a server
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## License
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+**COVID-19** is an open-source project licensed under the [MIT License](LICENSE). Use it to make something cool, have fun, and share what you've learned with others.
