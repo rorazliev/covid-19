@@ -1,7 +1,18 @@
 {
   "name": "covid-19",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "An application that tracks Coronavirus disease situation in the US",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rorazliev/covid-19.git"
+  },
+  "author": "Ruslan Orazliev (https://linkedin.com/in/rorazliev)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rorazliev/covid-19/issues"
+  },
+  "homepage": "https://rorazliev.github.io/covid-19",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^11.2.7",
@@ -26,16 +37,13 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "eject": "react-scripts eject",
+    "lint": "eslint ./src/**",
+    "deploy": "gh-pages -d build",
+    "predeploy": "npm run build",
+    "start": "react-scripts start",
+    "test": "react-scripts test"
   },
   "browserslist": {
     "production": [
@@ -58,6 +66,7 @@
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.27.1",
-    "eslint-plugin-react-hooks": "^4.2.0"
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "gh-pages": "^3.2.3"
   }
 }
