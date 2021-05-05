@@ -2,6 +2,7 @@
 import React, {
   ReactElement, useEffect, useState, useRef,
 } from 'react';
+import dayjs from 'dayjs';
 import { useSelector } from '../../redux/store';
 import { Date } from '../../types/Timeline';
 import Candlestick from '../Candlestick';
@@ -25,9 +26,10 @@ const Chart: React.FC = (): ReactElement => {
 
   // Scroll to the end of chart
   useEffect(() => {
-    const node = anchor.current;
-    node?.scrollIntoView({ behavior: 'smooth' });
-  }, []);
+    if (anchor && anchor.current) {
+      anchor.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [timeline]);
 
   // The highest number of cases or deaths
   let max = 0;
@@ -65,11 +67,13 @@ const Chart: React.FC = (): ReactElement => {
           <Info>
             <p>
               <span>Date: </span>
-              {focused.date}
+              {dayjs(focused.date).format('MMM D, YYYY')}
             </p>
             <p>
               <span>{`${selected}: `}</span>
-              {selected === 'cases' ? focused.cases : focused.deaths}
+              {selected === 'cases'
+                ? focused.cases.toLocaleString('en-US')
+                : focused.deaths.toLocaleString('en-US')}
             </p>
           </Info>
 
