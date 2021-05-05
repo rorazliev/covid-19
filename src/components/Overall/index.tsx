@@ -29,17 +29,29 @@ const Overall: React.FC<PropTypes> = ({ name }): ReactElement => {
           <Population>
             <Bold>Population:</Bold>
             {' '}
-            <Medium>{overall?.population}</Medium>
+            <Medium>
+              {overall.population
+                ? overall.population.toLocaleString('en-US')
+                : 'Loading...'}
+            </Medium>
           </Population>
         </Heading>
         <Row>
           <Column>
             <Title>Cases</Title>
-            <Data>{overall?.cases}</Data>
+            <Data>
+              {overall.cases
+                ? overall.cases.toLocaleString('en-US')
+                : 'Loading...'}
+            </Data>
           </Column>
           <Column>
             <Title>Deaths</Title>
-            <Data>{overall?.deaths}</Data>
+            <Data>
+              {overall.deaths
+                ? overall.deaths.toLocaleString('en-US')
+                : 'Loading...'}
+            </Data>
           </Column>
         </Row>
       </Card>
