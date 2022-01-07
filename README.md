@@ -7,7 +7,7 @@
   <img src="https://img.shields.io/github/license/rorazliev/covid-19" alt="License" />
 </p>
 
-![COVID-19](https://i.imgur.com/eQtBBo2.png)
+![COVID-19](https://i.imgur.com/KBISIff.png)
 
 **[Try it now!](https://rorazliev.github.io/covid-19)**
 
