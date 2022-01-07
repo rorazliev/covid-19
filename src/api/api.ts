@@ -1,6 +1,5 @@
 import axios, { AxiosPromise } from 'axios';
-import Overall from '../types/Overall';
-import Timeline from '../types/Timeline';
+import { Overall, Timeline } from '../types/types';
 
 // Base URL for API calls
 export const baseURL = 'https://disease.sh/v3/covid-19';
@@ -10,22 +9,36 @@ export const instance = axios.create({
   baseURL,
 });
 
-// Get the overall data for the USA
-export const getUsaTotal = (): AxiosPromise<Overall> => instance.get(
+/**
+ * Get overall data for the US
+ * @returns {AxiosPromise<Overall>}
+ */
+export const getUsaOverall = (): AxiosPromise<Overall> => instance.get(
   '/countries/usa?strict=true',
 );
 
-// Get the timeline for the USA
+/**
+ * Get timeline data for the US
+ * @returns {AxiosPromise<Timeline>}
+ */
 export const getUsaTimeline = (): AxiosPromise<Timeline> => instance.get(
   '/nyt/usa',
 );
 
-// Get the overall data for a given state
-export const getStateTotal = (
+/**
+ * Get total data for a given state
+ * @param {string} name
+ * @returns {AxiosPromise<Overall>}
+ */
+export const getStateOverall = (
   name: string,
 ): AxiosPromise<Overall> => instance.get(`/states/${name}`);
 
-// Get the timeline for a given state
+/**
+ * Get timeline data for a given state
+ * @param {string} name
+ * @returns {AxiosPromise<Timeline>}
+ */
 export const getStateTimeline = (
   name: string,
 ): AxiosPromise<Timeline> => instance.get(`/nyt/states/${name}?lastdays=all`);

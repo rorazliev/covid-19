@@ -12,13 +12,13 @@ const rootReducer = combineReducers({
   data: dataReducer,
 });
 
-// Create an new store instance
+// Create a store
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
-// The root state type
+// Define the store state type
 export type State = ReturnType<typeof store.getState>
 
-// Create thunk dispatch type
+// Define the thunk dispatch type
 export type Dispatch = ThunkDispatch<State, unknown, AnyAction>;
 
 // Rewrite useSelector for thunking

@@ -1,12 +1,11 @@
 /* eslint-disable default-param-last */
 import { AxiosPromise } from 'axios';
 import { AnyAction } from 'redux';
-import * as api from '../api/covid';
-import Overall from '../types/Overall';
-import Timeline from '../types/Timeline';
+import * as api from '../api/api';
+import { Overall, Timeline } from '../types/types';
 import { Dispatch } from './store';
 
-// State type
+// Define the state type
 type State = {
   overall: Overall,
   timeline: Timeline,
@@ -14,101 +13,113 @@ type State = {
   isError: boolean,
 }
 
-// Initial state
+// Create the initial state
 const initialState = {
   overall: {} as Overall,
-  timeline: [] as Timeline,
+  timeline: {} as Timeline,
   isFetching: true,
   isError: false,
 };
 
-// Data reducer, common for all pages
+/**
+ * Data reducer function
+ * @param {State} state
+ * @param {AnyAction} action
+ * @returns {State}
+ */
 const dataReducer = (
   state: State = initialState,
   action: AnyAction,
 ): State => {
   switch (action.type) {
-    case 'DATA/SET_FETCHING':
-    case 'DATA/SET_ERROR':
     case 'DATA/SET_OVERALL':
     case 'DATA/SET_TIMELINE':
+    case 'DATA/SET_IS_FETCHING':
+    case 'DATA/SET_IS_ERROR':
       return {
         ...state,
         ...action.payload,
       };
 
     default:
-      return state;
+      return { ...state };
   }
 };
 
+// A collection of action creators
 const actions = {
-  setError: (state: boolean) => ({
-    type: 'DATA/SET_ERROR',
-    payload: {
-      isError: state,
-    },
-  }),
-
-  setFetching: (state: boolean) => ({
-    type: 'DATA/SET_FETCHING',
-    payload: {
-      isFetching: state,
-    },
-  }),
-
-  setOverall: (overall?: Overall) => ({
+  setOverall: (overall: Overall) => ({
     type: 'DATA/SET_OVERALL',
     payload: {
       overall,
     },
   }),
 
-  setTimeline: (timeline?: Timeline) => ({
+  setTimeline: (timeline: Timeline) => ({
     type: 'DATA/SET_TIMELINE',
     payload: {
       timeline,
     },
   }),
+
+  setIsFetching: (state: boolean) => ({
+    type: 'DATA/SET_IS_FETCHING',
+    payload: {
+      isFetching: state,
+    },
+  }),
+
+  setIsError: (state: boolean) => ({
+    type: 'DATA/SET_IS_ERROR',
+    payload: {
+      isError: state,
+    },
+  }),
 };
 
-// Fetch overall and timeline data
+/**
+ * Fetch data from the server
+ * @param {string | null} name
+ * @returns {void}
+ */
 export const fetch = (
-  state: string | null = null,
+  name: string | null = null,
 ) => (dispatch: Dispatch): void => {
-  // Start fetching data
-  dispatch(actions.setFetching(true));
+  // Get Overall API call promise
+  const overallPromise: AxiosPromise<Overall> = name
+    ? api.getStateOverall(name) : api.getUsaOverall();
 
-  // Get overall data
-  const overall: AxiosPromise<Overall> = state
-    ? api.getStateTotal(state) : api.getUsaTotal();
+  // Get Timeline API call promise
+  const timelinePromise: AxiosPromise<Timeline> = name
+    ? api.getStateTimeline(name) : api.getUsaTimeline();
 
-  // Get timeline
-  const timeline: AxiosPromise<Timeline> = state
-    ? api.getStateTimeline(state) : api.getUsaTimeline();
-
-  // Wait responses and set data
-  Promise.all([overall, timeline]).then(
+  // Wait for promises to return response
+  Promise.all([overallPromise, timelinePromise]).then(
     ([overallResponse, timelineResponse]) => {
-      const overalllData = overallResponse.data;
-      const timelineData = timelineResponse.data;
+      // Get data
+      const overall = overallResponse.data;
+      const timeline = timelineResponse.data;
 
-      dispatch(actions.setOverall(overalllData));
-      dispatch(actions.setTimeline(timelineData));
+      // Set data
+      dispatch(actions.setOverall(overall));
+      dispatch(actions.setTimeline(timeline));
     },
   ).catch(() => {
-    dispatch(actions.setError(true));
+    dispatch(actions.setIsError(true));
+  }).finally(() => {
+    dispatch(actions.setIsFetching(false));
   });
-  // End fetching data
-  dispatch(actions.setFetching(false));
 };
 
-// Reset the state
+/**
+ * Reset the state on component will unmount
+ * @returns {void}
+ */
 export const reset = () => (dispatch: Dispatch): void => {
-  dispatch(actions.setError(false));
-  dispatch(actions.setFetching(true));
   dispatch(actions.setOverall({} as Overall));
-  dispatch(actions.setTimeline([] as Timeline));
+  dispatch(actions.setTimeline({} as Timeline));
+  dispatch(actions.setIsFetching(true));
+  dispatch(actions.setIsError(false));
 };
 
 export default dataReducer;
